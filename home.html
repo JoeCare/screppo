@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>CSS Template</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+.header {
+  background-color: #c61212;
+  padding: 20px;
+  text-align: center;
+  font-size: 25px;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.card {
+    background-color: #b79393;
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+}
+
+/* Style the footer */
+.footer {
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<h2>CSS Template using Float</h2>
+<p>In this example, we have created a header, three equal columns and a footer. On smaller screens, the columns will stack on top of each other.</p>
+<p>Resize the browser window to see the responsive effect.</p>
+
+<div class="header">
+  <h2>Header</h2>
+    <p>header undertext</p>
+</div>
+
+<div class="row">
+    <div class="card">
+        <div class="card-header">UNDEADER CARDS</div>
+        <div class="card-title">Titles</div>
+        <div class="card-body">SOME card-body class content: In iaculis nunc sed augue lacus viverra
+          vitae congue eu.</div>
+    </div>
+    <div class="card">
+        <div class="card-header">UNDEADER CARDS</div>
+        <div class="card-title">Titles</div>
+    </div>
+    <div class="card">
+    <div class="card-header"><h4>UNDEADER CARDS h4</h4></div>
+    <div class="card-title">Titles</div>
+</div>
+<div class="card">
+    <div class="card-header">UNDEADER CARDS</div>
+    <div class="card-title">Titles</div>
+</div>
+</div>
+
+
+
+
+
+
+<div class="row">
+  <div class="column" style="background-color:#aaa;">
+      <h2>Column</h2>C2
+      <p>Vitae auctor eu augue ut. Et molestie ac
+          feugiat sed lectus vestibulum. Velit dignissim
+          sodales ut eu sem integer. Justo nec ultrices dui
+          sapien eget. Morbi enim nunc faucibus a.
+          Scelerisque fermentum dui faucibus in ornare.
+          Eu non diam phasellus vestibulum lorem sed risus.
+          Tempus quam pellentesque nec nam aliquam sem et
+          tortor. In iaculis nunc sed augue lacus viverra
+          vitae congue eu.
+      </p>
+  </div>
+    <div>
+        <a class="column" href="http://localhost:5000/">LING3 as sepaated column</a>
+    </div>
+  <div class="column" style="background-color:#bbb;">
+      <h4>Column</h4>Column
+      <p>Vitae auctor eu augue ut. Et molestie ac
+          feugiat sed lectus vestibulum. Velit dignissim
+          sodales ut eu sem integer. Justo nec ultrices dui
+          sapien eget. Morbi enim nunc faucibus a.
+          Scelerisque fermentum dui faucibus in ornare.
+          Eu non diam phasellus vestibulum lorem sed risus.
+          Tempus quam pellentesque nec nam aliquam sem et
+          tortor. In iaculis nunc sed augue lacus viverra
+          vitae congue eu.
+      </p>
+      <a href="http://localhost:5000/">LING</a>
+  </div>
+  <div class="column" style="background-color:#ccc;">
+      <h3>Column</h3>Column
+      <p>Vitae auctor eu augue ut. Et molestie ac
+          feugiat sed lectus vestibulum. Velit dignissim
+          sodales ut eu sem integer. Justo nec ultrices dui
+          sapien eget. Morbi enim nunc faucibus a.
+          Scelerisque fermentum dui faucibus in ornare.
+          Eu non diam phasellus vestibulum lorem sed risus.
+          Tempus quam pellentesque nec nam aliquam sem et
+          tortor. In iaculis nunc sed augue lacus viverra
+          vitae congue eu.
+          <a href="http://localhost:5000/">LING1 not column class so as simple line</a>
+
+      </p>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Footer</p>
+    <small>Proin sed libero enim sed faucibus
+          turpis in. Aliquet nibh praesent tristique magna.
+          Penatibus et magnis dis parturient montes.
+    </small>
+</div>
+
+</body>
+</html>
