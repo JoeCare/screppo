@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
-import bs4
+from bs4.element import ResultSet
 
 # html_text = requests.get('https://www.praca.pl/s-python,developer.html?p=python+developer')
 # print(html_text, type(html_text), type(html_text.text))
@@ -18,7 +18,7 @@ bs = BeautifulSoup(html_dom.content, 'html.parser')
 print(bs)
 offers = bs.find_all('div', class_="offer-item-details")
 listing = bs.find_all('div', class_="listing")
-pagination = bs.find_all('ul', class_="pager")
+pagination = bs.find('ul', class_="pager")
 # with open('site.txt', 'w+') as site:
 #     site.write(bs.text)
 # for offer in offers:
@@ -36,11 +36,14 @@ pagination = bs.find_all('ul', class_="pager")
     # next_page = offer.find('a')
     # print("next page:", next_page['href'])
 
-
+# def harvest_link():
+#     prev_next = bs.preserve_whitespace_tags.has_attr('class')
+#     act = tag2.has_attr('class')
+#     return prev_next and not act
 
 for l in listing:
     offers = l.find_all('div', class_="offer-item-details")
-    pagination = bs.find_all('ul', class_="pager")
+    # pagination = bs.find('ul', class_="pager")
     for offer in offers:
         # offer = offer.prettify()
         print("\n!!!!!NEW!!!!!!:")
@@ -66,15 +69,27 @@ for l in listing:
         print("price:", price.text.replace(" ","").replace("\n",""))
         print("price:", next(price.stripped_strings).replace(" ",""))
 
-    for page in pagination:
+# print(pagination)
+print("Previous page:", pagination.find('a', attrs={"data-dir": "previous"})['href'])
+print("Current page:", pagination.find('a', attrs={"class": "active"})['href'])
+print("Next page:", pagination.find('a', attrs={"data-dir": "next"})['href'])
+print("Pages:", pagination.find('li', attrs={"id": "pageParam"})['placeholder'])
+# pagination1 = pagination.find_all(attrs={"data-dir": "previous"})
+    # print(page.get('href'), page.get('class'))
+    # if page.attrs == {'class': 'active'}:
+    #     print("Active:", page)
+    # for page in pagination:
         # current = page.find('li', class_="page-counter")
         # print("current:", current, pagination)
-        print(page.find_all('li'))
+        # prev_next = page.find_all('li', class_=['pager-prev', 'pager-next'])
+        # prev_next = pagination  #.find_all('li', class_=['pager-prev', 'pager-next'])
+        # print(pagination.find_all('li', class_=['pager-prev', 'pager-next']))
 
-    for page in pagination:
-        # print("p", page)
-        for p in page:
-            print(p)
+        # for page in pagination.find_all(harvest_link(bs.li, bs.a)):
+        #     print(1111, page) # print(pagination.find_all('li', class_=['pager-prev', 'pager-next']))
+        #     if page.li:
+        #         print(page.li, 111111)
+
         # print("!!!!!!!!!!!!!!!!", p.find('li', class_="pager-prev").a['href'])
         # print("!!!!!!!!!!!!!!!!active?", p.find('li').a['href'])
         # print("!!!!!!!!!!!!!!!!active?", p.find('li').a['href'])
