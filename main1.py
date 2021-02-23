@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 
-
 with open('home.html', 'r') as html_file:
     content = html_file.read()
     print("!!!!!!!RAW CODE!!\nPrint content: ", content)
@@ -16,5 +15,8 @@ with open('home.html', 'r') as html_file:
 
     for n, card in enumerate(site_cards):
         print(n+1, " of ", len(site_cards), "cards on site. divs only Example:\n", card.div)
+
     for n, card in enumerate(site_cards):
         print(n+1, " of ", len(site_cards), "cards on site. divs text only Example:\n", card.div.text)
+
+
