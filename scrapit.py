@@ -5,8 +5,8 @@ from typing import TypedDict, Literal, Pattern, Match, NamedTuple, Union, \
 
 
 class Apartment(TypedDict):
-	offer: Callable[[i], str]
-	area:
+	offer: str
+	area: int
 	rooms: int
 
 
