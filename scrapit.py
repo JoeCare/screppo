@@ -1,5 +1,15 @@
 import requests
 from bs4 import BeautifulSoup
+from typing import TypedDict, Literal, Pattern, Match, NamedTuple, Union, \
+	List, Callable, Sequence
+
+
+class Apartment(TypedDict):
+	offer: Callable[[i], str]
+	area:
+	rooms: int
+
+
 
 
 # noinspection SpellCheckingInspection
@@ -11,11 +21,12 @@ bs = BeautifulSoup(html_main.content, 'html.parser')
 offers = bs.find_all('div', class_="offer-item-details")
 
 
-def list_offers(res_set):
+def list_offers(res_set):-->
 	"""
 	Scraps relevant data and order in list of offers
-	:param parsed_soup:
-	:return:
+	:type res_set: 
+	:param res_set:
+	:return: Union[]
 	"""
 	i = 1
 	for offer in res_set:
@@ -63,4 +74,4 @@ def paginate(parsed_soup):
 
 # print(paginate(bs)['current'])
 
-print(list_offers(offers))
+print(list_offers(offers)[0])
