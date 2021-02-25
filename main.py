@@ -72,3 +72,19 @@ if __name__ == '__main__':
     run_task()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+
+def auto_paging (parsed_soup) :
+    pages = parsed_soup.find('ul', class_="pager")
+
+    current_page = print("Current page:",
+                         pages.find('a', attrs={"class" : "active"})['href'])
+    prev_page = print("Previous page:",
+                      pages.find('a', attrs={"data-dir" : "previous"})['href'])
+    next_page = print("Next page:",
+                      pages.find('a', attrs={"data-dir" : "next"})['href'])
+
+    return [current_page, prev_page, next_page]
+
+
+auto_paging(bs)
