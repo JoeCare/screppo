@@ -2,13 +2,16 @@ import requests
 from bs4 import BeautifulSoup
 
 
+class Scrapper:
+	pass
+
+
 # noinspection SpellCheckingInspection
-html_main = requests.get(
+get_page = requests.get(
 	'https://www.otodom.pl/wynajem/mieszkanie/warszawa/?search%5Bfilter_'
 	'float_price%3Ato%5D=1750&search%5Bcity_id%5D=26&page=2')
-bs_html = BeautifulSoup(html_main.content, 'html.parser')
-# raw_content = bs.find_all('div', class_="listing")
-offers = bs_html.find_all('div', class_="offer-item-details")
+bs_page = BeautifulSoup(get_page.content, 'html.parser')
+offers = bs_page.find_all('div', class_="offer-item-details")
 
 
 def list_offers(res_set):
@@ -18,37 +21,30 @@ def list_offers(res_set):
 	:param res_set: ResultSet
 	:return: ResultSet
 	"""
+	offers_mapper = {}
 
-	i = 1
+	next_example = 1
 	for offer in res_set:
-
-		link = offer.find('a')['href']
-		print("link:", link, end='\n')
-
 		item_title = offer.find('span', class_="offer-item-title")
-		print(f" {i}. OFFER:", f'"{item_title.text}"', sep='\n')
-		# description = offer.find('span', class_="hidden-xs")
 		description = offer.find('p', class_="text-nowrap")
-		print("Short info:", description.text)
+		link = offer.find('a')['href']
 		params = offer.find('ul', class_="params")
-		# for attr in params:
-		#     print("attr:", attr)
+
 		rooms = params.find('li', class_="offer-item-rooms hidden-xs")
 		price = params.find('li', class_="offer-item-price")
-		# prices = list(price.stripped_strings)
-		# prize = "\n\n".join(prices) if prices else ""
-		print("rooms:", rooms.text)
-		# print("price:", prize, price, prices)
-		# price2 = pri
+		area = params.find('li', class_="hidden-xs offer-item-area")
+
+		print(f"\n{next_example}. OFFER:", description.text, sep='\n')
+		print("subtitle:", item_title.text)
+		print("link:", link, end='\n')
 		print("price:", price.text.replace(" ", "").replace("\n", ""))
 		print("price:", next(price.stripped_strings).replace(" ", ""))
+		print("area:", area.text)
+		print("rooms:", rooms.text)
+		next_example += 1
 
-		size = offer.find('strong', class_="visible-xs-block")
-		print("size:", size.text)
-		i += 1
 
-
-def paginate(parsed_soup):
+def pagination_mapper(parsed_soup):
 	"""
 	Returns dictionary for pagination mapping
 	May be rewritten for a generator to invoke pagination by next() method
@@ -56,13 +52,20 @@ def paginate(parsed_soup):
 
 	pages = parsed_soup.find('ul', class_="pager")
 
-	current_page = pages.find('a', attrs={"class": "active"})['href']
+	# current_page = pages.find('a', attrs={"class": "active"})['href']
 	prev_page = pages.find('a', attrs={"data-dir": "previous"})['href']
 	next_page = pages.find('a', attrs={"data-dir": "next"})['href']
 
-	return {"current": current_page, "previous": prev_page, "next": next_page}
+	return {
+		"current": pages.find('a', attrs={"class": "active"})['href'],
+		"previous": prev_page,
+		"next": next_page
+		}
 
 
-# print(paginate(bs_html)['current'])
+print(pagination_mapper(bs_page))  # ['current'],
+# paginate(
+# bs_page)[
+# 'previous'])
 
 print(list_offers(offers))
