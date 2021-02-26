@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-
+import json
 
 class Scrapper:
 	pass
@@ -8,8 +8,8 @@ class Scrapper:
 
 # noinspection SpellCheckingInspection
 get_page = requests.get(
-	'https://www.otodom.pl/wynajem/mieszkanie/warszawa/?search%5Bfilter_'
-	'float_price%3Ato%5D=1750&search%5Bcity_id%5D=26&page=2')
+	"https://www.otodom.pl/wynajem/mieszkanie/warszawa/?search"
+	"%5Bfilter_float_price%3Ato%5D=1750&search%5Bcity_id%5D=26&page=2")
 bs_page = BeautifulSoup(get_page.content, 'html.parser')
 offers = bs_page.find_all('div', class_="offer-item-details")
 
@@ -25,6 +25,8 @@ def list_offers(res_set):
 
 	next_example = 1
 	for offer in res_set:
+		offer_mapper = {}
+
 		item_title = offer.find('span', class_="offer-item-title")
 		description = offer.find('p', class_="text-nowrap")
 		link = offer.find('a')['href']
@@ -42,6 +44,9 @@ def list_offers(res_set):
 		print("area:", area.text)
 		print("rooms:", rooms.text)
 		next_example += 1
+		offer_mapper[item_title.text] = description.text
+		print(json.dumps(offer_mapper, indent=2))
+		print(offer_mapper)
 
 
 def pagination_mapper(parsed_soup):
