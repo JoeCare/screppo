@@ -21,7 +21,7 @@ def list_offers(res_set):
 	:param res_set: ResultSet
 	:return: ResultSet
 	"""
-	offers_mapper = {}
+	offers_mapper = []
 
 	next_example = 1
 	for offer in res_set:
@@ -41,13 +41,17 @@ def list_offers(res_set):
 		print("link:", link, end='\n')
 		print("price:", price.text.replace(" ", "").replace("\n", ""))
 		print("price:", next(price.stripped_strings).replace(" ", ""))
+		print("price:", "".join(str(price.text).split()))
 		print("area:", area.text)
 		print("rooms:", rooms.text)
 		next_example += 1
-		offer_mapper[item_title.text] = description.text
-		print(json.dumps(offer_mapper, indent=2))
-		print(offer_mapper)
-
+		offer_mapper['title'] = description.text
+		offer_mapper['subtitle'] = item_title.text
+		offer_mapper['link'] = link
+		offer_mapper['price'] = "".join(price.text.split())
+		# print(offer_mapper.__repr__())
+		offers_mapper.append(offer_mapper)
+	return offers_mapper
 
 def pagination_mapper(parsed_soup):
 	"""
@@ -68,9 +72,9 @@ def pagination_mapper(parsed_soup):
 		}
 
 
-print(pagination_mapper(bs_page))  # ['current'],
+print(pagination_mapper(bs_page)['current'])  # ['current'],
 # paginate(
 # bs_page)[
 # 'previous'])
 
-print(list_offers(offers))
+print(list_offers(offers)[1:4])
