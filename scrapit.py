@@ -1,33 +1,24 @@
 import requests
 from bs4 import BeautifulSoup
-from typing import TypedDict, Literal, Pattern, Match, NamedTuple, Union, \
-	List, Callable, Sequence
-
-
-class Apartment(TypedDict):
-	offer: str
-	area: int
-	rooms: int
-
-
 
 
 # noinspection SpellCheckingInspection
 html_main = requests.get(
 	'https://www.otodom.pl/wynajem/mieszkanie/warszawa/?search%5Bfilter_'
 	'float_price%3Ato%5D=1750&search%5Bcity_id%5D=26&page=2')
-bs = BeautifulSoup(html_main.content, 'html.parser')
+bs_html = BeautifulSoup(html_main.content, 'html.parser')
 # raw_content = bs.find_all('div', class_="listing")
-offers = bs.find_all('div', class_="offer-item-details")
+offers = bs_html.find_all('div', class_="offer-item-details")
 
 
-def list_offers(res_set):-->
+def list_offers(res_set):
 	"""
 	Scraps relevant data and order in list of offers
-	:type res_set: 
-	:param res_set:
-	:return: Union[]
+	:type
+	:param res_set: ResultSet
+	:return: ResultSet
 	"""
+
 	i = 1
 	for offer in res_set:
 
@@ -72,6 +63,6 @@ def paginate(parsed_soup):
 	return {"current": current_page, "previous": prev_page, "next": next_page}
 
 
-# print(paginate(bs)['current'])
+# print(paginate(bs_html)['current'])
 
-print(list_offers(offers)[0])
+print(list_offers(offers))
